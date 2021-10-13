@@ -1,0 +1,263 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Sample REST endpoint for dev",
+    "description": "Sample REST endpoint for dev",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Trips",
+      "description": "API for trips in the system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+
+
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        }
+      }
+    },
+
+
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID of user that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user with given ID",
+        "responses": {
+          "200": {
+            "description": "User is found",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user with given ID",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User is deleted",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user with give ID",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+
+    "/trips": {
+      "parameters": [
+        {
+          "name": "tripId",
+          "in": "path",
+          "required": true,
+          "description": "ID of trip that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Get trip with given ID",
+        "responses": {
+          "200": {
+            "description": "Trips found",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete trip with given ID",
+        "tags": [
+          "Trips"
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip is deleted",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update trip with give ID",
+        "tags": [
+          "Trips"
+        ],
+        "parameters": [
+          {
+            "name": "trip",
+            "in": "body",
+            "description": "Trip with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip updated",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          }
+        }
+      }
+    }
+
+  },
+  "definitions": {
+    "Trip": {
+      "required": [
+        "_id"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "date_start": {
+          "type": "string"
+        },
+        "date_end": {
+          "type": "string"
+        },
+        "locations": {
+          "type": "array"
+        },
+        "kilometers": {
+          "type": "number"
+        }, 
+        "done": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Trips": {
+      "type": "array",
+      "$ref": "#/definitions/Trip"
+    },
+
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/Users"
+    },
+
+    "User": {
+      "required": [
+        "_id",
+        "username"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "username": {
+          "type": "string"
+        }
+    }
+}
+}
+}
